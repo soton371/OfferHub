@@ -1,0 +1,11 @@
+pip freeze > requirements.txt
+pip install -r requirements.txt
+
+source .venv/bin/activate
+
+fastapi dev app/main.py
+
+for db setup:
+pip install sqlalchemy asyncpg
+pip install alembic
+alembic init alembic
