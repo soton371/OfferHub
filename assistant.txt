@@ -9,3 +9,14 @@ for db setup:
 pip install sqlalchemy asyncpg
 pip install alembic
 alembic init alembic
+
+1. model
+2. schema
+3. repository
+4. service
+5. router
+
+model:
+Class Name -->	Singular
+Table Name -->	Plural
+
