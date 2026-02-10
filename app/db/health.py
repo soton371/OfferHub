@@ -5,7 +5,7 @@ from app.db.session import get_db
 
 router = APIRouter()
 
-@router.get("/health/db")
-async def db_health(db: AsyncSession = Depends(get_db)):
+@router.get("/health/db", response_model=dict)
+async def db_health(db: AsyncSession = Depends(get_db)) -> dict:
     await db.execute(text("SELECT 1"))
     return {"database": "ok"}
