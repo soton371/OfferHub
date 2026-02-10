@@ -1,7 +1,7 @@
 from fastapi import FastAPI
-from core.settings import settings
-from db.health import router as db_health_router
-from modules.auth.router import router as auth_router
+from app.core.settings import settings
+from app.db.health import router as db_health_router
+from app.modules.auth.router import router as auth_router
 
 app = FastAPI()
 
