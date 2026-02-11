@@ -8,7 +8,7 @@ app = FastAPI()
 
 @app.get("/")
 async def root():
-    return {"message": f"Hello World {settings.APP_NAME}"}
+    return {"message": f"{settings.APP_NAME} server is running..."}
 
 app.include_router(db_health_router)
 app.include_router(auth_router)

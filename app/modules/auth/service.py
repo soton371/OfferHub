@@ -1,4 +1,4 @@
-from fastapi import HTTPException
+from fastapi import HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
 from .repository import UserRepository
 from .schema import UserCreate
@@ -14,7 +14,7 @@ class AuthService:
         repository = UserRepository(self.db)
         existing = await repository.get_user_by_email(data.email)
         if existing:
-            raise HTTPException(status_code=400, detail="Email already exists")
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Email already exists")
 
         user = User(email=data.email)
         return await repository.create(user)

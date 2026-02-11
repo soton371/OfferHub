@@ -3,9 +3,9 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi import Depends, APIRouter
 from app.db.session import get_db
 
-router = APIRouter()
+router = APIRouter(prefix="/health", tags=["Health"])
 
-@router.get("/health/db", response_model=dict)
+@router.get("/db", response_model=dict)
 async def db_health(db: AsyncSession = Depends(get_db)) -> dict:
     await db.execute(text("SELECT 1"))
     return {"database": "ok"}
