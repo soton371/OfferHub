@@ -23,8 +23,15 @@ class Settings(BaseSettings):
 
 settings = Settings()
 
+# Async URL for FastAPI application (high performance with asyncpg)
 DATABASE_URL = (
     f"postgresql+asyncpg://{settings.DB_USER}:{settings.DB_PASSWORD}"
+    f"@{settings.DB_HOST}:{settings.DB_PORT}/{settings.DB_NAME}"
+)
+
+# Sync URL for Alembic migrations (simple and reliable with psycopg2)
+DATABASE_URL_SYNC = (
+    f"postgresql+psycopg2://{settings.DB_USER}:{settings.DB_PASSWORD}"
     f"@{settings.DB_HOST}:{settings.DB_PORT}/{settings.DB_NAME}"
 )
 
