@@ -3,6 +3,7 @@ from datetime import datetime
 
 class UserCreate(BaseModel):
     email: EmailStr
+    name: str
 
     @field_validator('email')
     @classmethod
