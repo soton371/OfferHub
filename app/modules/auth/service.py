@@ -18,3 +18,8 @@ class AuthService:
 
         user = User(email=data.email)
         return await repository.create(user)
+
+    async def get_users(self) -> list[User] | None:
+        print(f"Service get_users data")
+        repository = UserRepository(self.db)
+        return await repository.get_users()

@@ -11,3 +11,10 @@ async def register(data: UserCreate, db: AsyncSession = Depends(get_db)):
     print(f'Router User data: {data}')
     service = AuthService(db)
     return await service.register(data)
+
+@router.get("/users", response_model=list[UserResponse])
+async def get_users(db: AsyncSession = Depends(get_db)):
+    print(f'Router get_users data')
+    service = AuthService(db)
+    return await service.get_users()
+

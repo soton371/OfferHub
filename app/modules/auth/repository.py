@@ -20,3 +20,8 @@ class UserRepository:
         result = await self.db.execute(select(User).where(User.email == email))
         return result.scalar_one_or_none()
 
+    async def get_users(self)-> list[User] | None:
+        print(f"UserRepository get_users data")
+        result = await self.db.execute(select(User))
+        return result.scalars().all()
+
