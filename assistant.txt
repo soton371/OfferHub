@@ -4,12 +4,17 @@ pip install -r requirements.txt
 source .venv/bin/activate
 
 fastapi dev app/main.py
-python -m uvicorn app.main:app --reload --port 8000
+python3 -m uvicorn app.main:app --reload --port 8000
 
 for db setup:
 pip install sqlalchemy asyncpg
 pip install alembic
 alembic init alembic
+
+#after create model & add alembic/env.py
+alembic revision --autogenerate -m "Create users table"
+alembic upgrade head
+
 
 1. model
 2. schema
