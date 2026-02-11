@@ -1,7 +1,7 @@
 from fastapi import HTTPException, status, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 from .repository import UserRepository
-from .schema import UserCreate
+from .schema import UserCreate, UserSearch
 from .model import User
 from typing import Annotated
 from app.db.session import get_db
@@ -21,9 +21,9 @@ class AuthService:
         user = User(email=data.email)
         return await self.repository.create(user)
 
-    async def get_users(self) -> list[User] | None:
-        print(f"Service get_users data")
-        return await self.repository.get_users()
+    async def get_users(self, search: UserSearch) -> list[User]:
+        print(f"Service get_users data: {search}")
+        return await self.repository.get_users(search)
 
 
 

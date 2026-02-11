@@ -20,3 +20,19 @@ class UserResponse(UserCreate):
     class Config:
         from_attributes = True
 
+
+class UserSearch(BaseModel):
+    page: int = 1
+    limit: int = 10
+    email: str | None = None
+    sort_by: str = "created_at"
+    sort_order: str = "desc"
+
+    @field_validator('limit')
+    @classmethod
+    def limit_must_be_valid(cls, v: int) -> int:
+        if v < 1:
+            return 10
+        if v > 100:
+            return 100
+        return v

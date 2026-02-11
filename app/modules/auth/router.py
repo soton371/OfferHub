@@ -1,5 +1,5 @@
-from fastapi import APIRouter, status
-from .schema import UserCreate, UserResponse
+from fastapi import APIRouter, status, Depends
+from .schema import UserCreate, UserResponse, UserSearch
 from .service import AuthServiceDep
 
 
@@ -11,7 +11,7 @@ async def register(data: UserCreate, service: AuthServiceDep):
     return await service.register(data)
 
 @router.get("/users", response_model=list[UserResponse])
-async def get_users(service: AuthServiceDep):
-    print(f'Router get_users data')
-    return await service.get_users()
+async def get_users(service: AuthServiceDep, search: UserSearch = Depends()):
+    print(f'Router get_users search: {search}')
+    return await service.get_users(search)
 
