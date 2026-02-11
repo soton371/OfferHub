@@ -23,6 +23,13 @@ class AuthService:
         print(f"Service get_users data: {search}")
         return await self.repository.get_users(search)
 
+    async def delete(self, id: int) -> User:
+        print(f"Service delete data: {id}")
+        user = await self.repository.get_user_by_id(id)
+        if not user:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
+        return await self.repository.delete(user)
+
 
 
 async def get_auth_service(db: AsyncSession = Depends(get_db)) -> AuthService:

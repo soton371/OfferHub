@@ -15,3 +15,8 @@ async def get_users(service: AuthServiceDep, search: UserSearch = Depends()):
     print(f'Router get_users search: {search}')
     return await service.get_users(search)
 
+@router.delete("/users/{id}", status_code=status.HTTP_200_OK)
+async def delete(id: int, service: AuthServiceDep):
+    print(f'Router delete data: {id}')
+    result = await service.delete(id)
+    return {"detail": f"User {result.name} deleted successfully"}
