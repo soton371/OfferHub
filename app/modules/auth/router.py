@@ -1,20 +1,17 @@
-from fastapi import APIRouter, Depends, status
+from fastapi import APIRouter, status
 from .schema import UserCreate, UserResponse
-from .service import AuthService
-from sqlalchemy.ext.asyncio import AsyncSession
-from app.db.session import get_db
+from .service import AuthServiceDep
+
+
 router = APIRouter(prefix="/auth", tags=["Auth"])
 
-
 @router.post("/register", status_code=status.HTTP_201_CREATED, response_model=UserResponse)
-async def register(data: UserCreate, db: AsyncSession = Depends(get_db)):
+async def register(data: UserCreate, service: AuthServiceDep):
     print(f'Router User data: {data}')
-    service = AuthService(db)
     return await service.register(data)
 
 @router.get("/users", response_model=list[UserResponse])
-async def get_users(db: AsyncSession = Depends(get_db)):
+async def get_users(service: AuthServiceDep):
     print(f'Router get_users data')
-    service = AuthService(db)
     return await service.get_users()
 
