@@ -17,9 +17,7 @@ class AuthService:
         existing = await self.repository.get_user_by_email(data.email)
         if existing:
             raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Email already exists")
-
-        user = User(email=data.email)
-        return await self.repository.create(user)
+        return await self.repository.create(User(**data.model_dump()))
 
     async def get_users(self, search: UserSearch) -> list[User]:
         print(f"Service get_users data: {search}")

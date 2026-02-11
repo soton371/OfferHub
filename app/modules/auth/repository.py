@@ -9,11 +9,10 @@ class UserRepository:
 
     async def create(self, user: UserCreate) -> User:
         print(f'UserRepository User data: {user}')
-        db_user = User(email=user.email)
-        self.db.add(db_user)
+        self.db.add(user)
         await self.db.commit()
-        await self.db.refresh(db_user)
-        return db_user
+        await self.db.refresh(user)
+        return user
 
     async def get_user_by_email(self, email: str) -> User | None:
         print(f'UserRepository get_user_by_email data: {email}')

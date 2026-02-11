@@ -12,6 +12,13 @@ class UserCreate(BaseModel):
             raise ValueError('Email cannot be empty')
         return v.strip()
 
+    @field_validator('name')
+    @classmethod
+    def name_must_not_be_empty(cls, v: str) -> str:
+        if not v or not v.strip():
+            raise ValueError('Name cannot be empty')
+        return v.strip()
+
 
 class UserResponse(UserCreate):
     id: int
