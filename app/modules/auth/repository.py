@@ -9,13 +9,13 @@ class UserRepository:
 
 
 
-    async def get_user_by_email(self, email: str) -> User | None:
-        print(f'UserRepository get_user_by_email data: {email}')
+    async def get_by_email(self, email: str) -> User | None:
+        print(f'UserRepository get_by_email data: {email}')
         result = await self.db.execute(select(User).where(User.email == email))
         return result.scalar_one_or_none()
 
-    async def get_user_by_id(self, id: int) -> User | None:
-        print(f'UserRepository get_user_by_id data: {id}')
+    async def get_by_id(self, id: int) -> User | None:
+        print(f'UserRepository get_by_id data: {id}')
         result = await self.db.execute(select(User).where(User.id == id))
         return result.scalar_one_or_none()
 
@@ -39,8 +39,8 @@ class UserRepository:
         await self.db.refresh(user)
         return user
 
-    async def get_users(self, search: UserSearch) -> list[User]:
-        print(f"UserRepository get_users data: {search}")
+    async def get_all(self, search: UserSearch) -> list[User]:
+        print(f"UserRepository get_all data: {search}")
         query = select(User)
 
         if search.email:
