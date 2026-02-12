@@ -7,7 +7,7 @@ from typing import Annotated
 from app.db.session import get_db
 
 
-class AuthService:
+class UserService:
     def __init__(self, db: AsyncSession):
         self.db = db
         self.repository = UserRepository(db)
@@ -46,7 +46,7 @@ class AuthService:
         return await self.repository.update(user)
 
 
-async def get_auth_service(db: AsyncSession = Depends(get_db)) -> AuthService:
-    return AuthService(db)
+async def get_user_service(db: AsyncSession = Depends(get_db)) -> UserService:
+    return UserService(db)
 
-AuthServiceDep = Annotated[AuthService, Depends(get_auth_service)]
+UserServiceDep = Annotated[UserService, Depends(get_user_service)]

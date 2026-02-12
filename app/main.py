@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from app.core.settings import settings
 from app.db.health import router as db_health_router
-from app.modules.auth.router import router as auth_router
+from app.modules.user.router import router as user_router
 from redis.asyncio import Redis
 
 app = FastAPI()
@@ -12,7 +12,7 @@ async def root():
     return {"message": f"{settings.APP_NAME} server is running..."}
 
 app.include_router(db_health_router)
-app.include_router(auth_router)
+app.include_router(user_router)
 
 
 # for redis

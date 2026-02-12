@@ -7,7 +7,7 @@ from alembic import context
 from app.core.settings import DATABASE_URL_SYNC
 from app.db.base import Base
 # Import all models here to ensure they're registered with Base
-from app.modules.auth.model import User
+from app.modules.user.model import User
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
