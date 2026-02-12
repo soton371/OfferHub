@@ -5,9 +5,7 @@ from fastapi import HTTPException, status
 class CommonService:
     def send_otp(self, data: SendOtpRequest):
         otp = '123456'
-        result = storeRedis(data.email, otp)
-        if result is False:
-            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Failed to send OTP")
+        storeRedis(data.email, otp)
         return SendOtpResponse(detail="OTP sent successfully")
 
     def verify_otp(self, data: VerifyOtpRequest):

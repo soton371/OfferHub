@@ -4,9 +4,8 @@ class SendOtpRequest(BaseModel):
     email: EmailStr
 
     @field_validator("email")
-    def validate_email(cls, v):
-        if not v.strip():
-            raise ValueError("Email is required")
+    @classmethod
+    def validate_email(cls, v: str) -> str:
         return v.strip()
 
 
@@ -16,6 +15,13 @@ class SendOtpResponse(BaseModel):
 class VerifyOtpRequest(BaseModel):
     email: EmailStr
     otp: str
+
+    @field_validator("otp")
+    @classmethod
+    def validate_otp(cls, v: str) -> str:
+        if not v.strip():
+            raise ValueError("OTP is required")
+        return v.strip()
 
 
 class VerifyOtpResponse(BaseModel):

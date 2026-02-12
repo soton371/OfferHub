@@ -25,7 +25,7 @@ class UserUpdate(BaseModel):
     @field_validator('name')
     @classmethod
     def name_must_not_be_empty(cls, v: str) -> str:
-        if not v or not v.strip():
+        if not v.strip():
             raise ValueError('Name cannot be empty')
         return v.strip()
 
