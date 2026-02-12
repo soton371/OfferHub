@@ -30,10 +30,15 @@ Class Name -->	Singular
 Table Name -->	Plural
 
 Repository should contain:
-
 create()
 get_by_id()
 get_by_email()
 get_all()
 update()
 delete()
+
+
+redis install in own machine | brew install redis | then | pip install redis | 
+then check | redis-server | or | redis-cli
+
+
