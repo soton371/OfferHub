@@ -1,7 +1,7 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, desc, asc
 from .model import User
-from .schema import UserCreate, UserSearch
+from .schema import UserSearch
 
 class UserRepository:
     def __init__(self, db: AsyncSession):
@@ -20,7 +20,7 @@ class UserRepository:
         return result.scalar_one_or_none()
 
 
-    async def create(self, user: UserCreate) -> User:
+    async def create(self, user: User) -> User:
         print(f'UserRepository User data: {user}')
         self.db.add(user)
         await self.db.commit()
@@ -33,6 +33,11 @@ class UserRepository:
         await self.db.commit()
         return user
 
+    async def update(self, user: User) -> User:
+        print(f'UserRepository update data: {user}')
+        await self.db.commit()
+        await self.db.refresh(user)
+        return user
 
     async def get_users(self, search: UserSearch) -> list[User]:
         print(f"UserRepository get_users data: {search}")

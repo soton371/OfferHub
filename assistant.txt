@@ -21,7 +21,7 @@ alembic downgrade c285645d9c3c
 
 1. model
 2. schema
-3. repository
+3. repository (schema use hobe na bolte gelei chole)
 4. service
 5. router
 
@@ -29,3 +29,11 @@ model:
 Class Name -->	Singular
 Table Name -->	Plural
 
+Repository should contain:
+
+create()
+get_by_id()
+get_by_email()
+get_all()
+update()
+delete()

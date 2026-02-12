@@ -20,3 +20,9 @@ async def delete(id: int, service: AuthServiceDep):
     print(f'Router delete data: {id}')
     result = await service.delete(id)
     return {"detail": f"User {result.name} deleted successfully"}
+
+@router.put("/users/{id}", status_code=status.HTTP_200_OK)
+async def update(id: int, data: UserCreate, service: AuthServiceDep):
+    print(f'Router update data: {id}')
+    result = await service.update(id, data)
+    return {"detail": f"User {result.name} updated successfully"}
