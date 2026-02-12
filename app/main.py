@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from app.core.settings import settings
 from app.db.health import router as db_health_router
 from app.modules.user.router import router as user_router
+from app.modules.common.router import router as common_router
 from redis.asyncio import Redis
 
 app = FastAPI()
@@ -13,27 +14,5 @@ async def root():
 
 app.include_router(db_health_router)
 app.include_router(user_router)
-
-
-# for redis
-@app.on_event("startup")
-async def startup():
-    app.state.redis = await Redis(host='localhost', port='6379')
-
-
-@app.on_event("shutdown")
-async def shutdown():
-    await app.state.redis.close()
-
-
-@app.get("/redis_set")
-async def redis_set():
-    await app.state.redis.set("test", "test")
-    return {"message": "test"}
-
-
-@app.get("/redis_get")
-async def redis_get():
-    result = await app.state.redis.get("test")
-    return {"message": result}
+app.include_router(common_router)
 
