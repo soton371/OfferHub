@@ -15,7 +15,7 @@ class RedisClient:
         try:
             await self.redis_client.setex(key, ttl, value)
         except Exception as error:
-            # In production, you'd log the 'error' here
+            print(f'RedisClient store_redis error: {error}')
             raise HTTPException(
                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                 detail="Failed to store data in cache"
