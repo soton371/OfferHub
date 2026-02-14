@@ -19,6 +19,11 @@ class Settings(BaseSettings):
     REDIS_PORT: int = 6379
     REDIS_DB: int = 0
 
+    SMTP_HOST: str
+    SMTP_PORT: int
+    SENDER_EMAIL: str
+    SMTP_PASSWORD: str
+
     model_config = SettingsConfigDict(
         env_file=".env",
         env_file_encoding="utf-8"
