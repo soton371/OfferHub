@@ -7,7 +7,8 @@ from app.db.session import get_db
 from typing import Annotated
 import random
 import string
-from app.shared.send_mail import send_mail
+from app.shared.email_service import email_service
+from datetime import datetime
 
 
 class CommonService:
@@ -20,7 +21,14 @@ class CommonService:
         if not exist_user:
             raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="User not found")
         otp = ''.join(random.choices(string.digits, k=6))
-        send_mail(recipientMail=data.email, subject="Offer Hub OTP", content=f"Your OTP is {otp}")
+        
+        await email_service.send_email(
+            recipient_email=data.email, 
+            subject="Offer Hub OTP", 
+            template_name="otp.html",
+            context={"otp": otp, "subject": "Offer Hub OTP", "current_year": datetime.now().year, "app_name": "OfferHub"}
+        )
+        
         await redis_client.store_redis(data.email, otp)
         return SendOtpResponse(detail="OTP sent successfully")
 
